@@ -1,21 +1,25 @@
+
 import { GoogleGenAI } from "@google/genai";
 import { ChatMessage } from "../types";
 
-// Always use the process.env.API_KEY directly and use a named parameter for initialization.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 export const getHealthAssistantResponse = async (history: ChatMessage[], message: string) => {
   try {
-    // Health-related reasoning is a complex task, so gemini-3-pro-preview is preferred.
-    // Filter out the initial local welcome message to ensure a valid back-and-forth context.
+    // التأكد من وجود مفتاح API قبل المتابعة لمنع الانهيار
+    const apiKey = process.env.API_KEY;
+    if (!apiKey) {
+      console.error("API Key is not defined in the environment.");
+      return "عذراً، نظام المساعد الذكي غير متاح حالياً. يرجى المحاولة لاحقاً.";
+    }
+
+    const ai = new GoogleGenAI({ apiKey });
+    
     const contents = history
-      .filter(m => m.role === 'user' || (m.role === 'model' && m.text !== 'أهلاً بك! أنا مساعدك الصحي الذكي. كيف يمكنني مساعدتك اليوم؟'))
+      .filter(m => m.role === 'user' || (m.role === 'model' && m.text !== 'أهلاً بك! أنا مساعدك الصحي الذكي المدعوم بالذكاء الاصطناعي. كيف يمكنني خدمتك اليوم؟'))
       .map(m => ({
         role: m.role,
         parts: [{ text: m.text }]
       }));
     
-    // Add the current user prompt to the contents array.
     contents.push({ role: 'user', parts: [{ text: message }] });
 
     const response = await ai.models.generateContent({
@@ -28,7 +32,6 @@ export const getHealthAssistantResponse = async (history: ChatMessage[], message
       },
     });
 
-    // Directly access the .text property from the GenerateContentResponse object.
     return response.text || "عذراً، لم أستطع معالجة طلبك حالياً.";
   } catch (error) {
     console.error("Gemini API Error:", error);
