@@ -4,11 +4,13 @@ import { ChatMessage } from "../types";
 
 export const getHealthAssistantResponse = async (history: ChatMessage[], message: string) => {
   try {
-    // التأكد من وجود مفتاح API قبل المتابعة لمنع الانهيار
-    const apiKey = process.env.API_KEY;
+    // فحص أمان للوصول لمفتاح API
+    const env = typeof process !== 'undefined' ? process.env : {};
+    const apiKey = env.API_KEY;
+    
     if (!apiKey) {
-      console.error("API Key is not defined in the environment.");
-      return "عذراً، نظام المساعد الذكي غير متاح حالياً. يرجى المحاولة لاحقاً.";
+      console.warn("API Key is missing, AI Assistant features will be disabled.");
+      return "عذراً، المساعد الذكي غير متاح حالياً لعدم توفر مفتاح الوصول.";
     }
 
     const ai = new GoogleGenAI({ apiKey });

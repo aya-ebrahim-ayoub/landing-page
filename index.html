@@ -10,17 +10,19 @@
     <style>
       body {
         font-family: 'Tajawal', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8fafc;
+      }
+      #root {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
       }
       .glass {
         background: rgba(255, 255, 255, 0.7);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-      }
-      /* منع ظهور الفراغات البيضاء أثناء التحميل */
-      #root {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
       }
     </style>
     <script type="importmap">
