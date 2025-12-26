@@ -20,6 +20,8 @@ const Header: React.FC<HeaderProps> = ({ onOpenAssistant }) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+    } else if (id === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     setIsMobileMenuOpen(false);
   };
@@ -36,23 +38,23 @@ const Header: React.FC<HeaderProps> = ({ onOpenAssistant }) => {
       isScrolled ? 'bg-white/90 backdrop-blur-xl py-4 shadow-xl shadow-slate-200/20' : 'bg-transparent py-6'
     }`}>
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <div 
-          className="flex items-center gap-3 cursor-pointer" 
-          onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+        <button 
+          className="flex items-center gap-3 cursor-pointer group" 
+          onClick={() => scrollToSection('top')}
         >
-          <div className="bg-emerald-600 p-2 rounded-xl shadow-lg shadow-emerald-500/20">
+          <div className="bg-emerald-600 p-2 rounded-xl shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform">
             <Activity className="text-white w-6 h-6" />
           </div>
           <span className="text-2xl font-black tracking-tight text-slate-900">
             هيث-فلو
           </span>
-        </div>
+        </button>
         
         <nav className="hidden lg:flex items-center gap-10">
           {navLinks.map((link) => (
             <button 
               key={link.name}
-              onClick={(e) => {
+              onClick={() => {
                 if (link.action) {
                   link.action();
                 } else {
@@ -93,7 +95,6 @@ const Header: React.FC<HeaderProps> = ({ onOpenAssistant }) => {
               onClick={() => {
                 if (link.action) {
                   link.action();
-                  setIsMobileMenuOpen(false);
                 } else {
                   scrollToSection(link.id);
                 }

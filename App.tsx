@@ -12,20 +12,24 @@ const App: React.FC = () => {
   const [selectedDoctorId, setSelectedDoctorId] = useState<string>('');
   const [isAssistantOpen, setIsAssistantOpen] = useState(false);
 
-  const handleBookDoctor = (doctorId: string) => {
-    setSelectedDoctorId(doctorId);
-    const bookingSection = document.getElementById('booking');
-    bookingSection?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
-  const toggleAssistant = () => setIsAssistantOpen(!isAssistantOpen);
+  const handleBookDoctor = (doctorId: string) => {
+    setSelectedDoctorId(doctorId);
+    scrollToSection('booking');
+  };
 
   return (
     <div className="min-h-screen flex flex-col selection:bg-emerald-100">
       <Header onOpenAssistant={() => setIsAssistantOpen(true)} />
       
       <main className="flex-grow">
-        <Hero onStart={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} />
+        <Hero onStart={() => scrollToSection('services')} />
         
         {/* Trust Logos / Partners */}
         <section className="bg-white py-12 border-y border-slate-100 overflow-hidden">
@@ -81,41 +85,41 @@ const App: React.FC = () => {
               </p>
               <div className="flex gap-5">
                 {[Instagram, Twitter, Linkedin].map((Icon, i) => (
-                  <a key={i} href="#" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:text-emerald-500 hover:bg-white hover:shadow-xl transition-all duration-300">
+                  <button key={i} className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:text-emerald-500 hover:bg-white hover:shadow-xl transition-all duration-300">
                     <Icon className="w-6 h-6" />
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>
 
             <div>
-              <h5 className="font-black mb-8 text-xl text-emerald-500">استكشف</h5>
-              <ul className="space-y-5 text-slate-400 text-lg">
-                <li><a href="#services" className="hover:text-white transition-colors flex items-center gap-2"><span>•</span> الخدمات</a></li>
-                <li><a href="#doctors" className="hover:text-white transition-colors flex items-center gap-2"><span>•</span> أطباؤنا</a></li>
-                <li><a href="#booking" className="hover:text-white transition-colors flex items-center gap-2"><span>•</span> المواعيد</a></li>
-                <li><a href="#" onClick={(e) => { e.preventDefault(); setIsAssistantOpen(true); }} className="hover:text-white transition-colors flex items-center gap-2"><span>•</span> المساعد الذكي</a></li>
+              <h5 className="font-black mb-8 text-xl text-emerald-500 text-right">استكشف</h5>
+              <ul className="space-y-5 text-slate-400 text-lg text-right">
+                <li><button onClick={() => scrollToSection('services')} className="hover:text-white transition-colors flex items-center gap-2 mr-auto ml-0">الخدمات <span>•</span></button></li>
+                <li><button onClick={() => scrollToSection('doctors')} className="hover:text-white transition-colors flex items-center gap-2 mr-auto ml-0">أطباؤنا <span>•</span></button></li>
+                <li><button onClick={() => scrollToSection('booking')} className="hover:text-white transition-colors flex items-center gap-2 mr-auto ml-0">المواعيد <span>•</span></button></li>
+                <li><button onClick={() => setIsAssistantOpen(true)} className="hover:text-white transition-colors flex items-center gap-2 mr-auto ml-0">المساعد الذكي <span>•</span></button></li>
               </ul>
             </div>
 
             <div>
-              <h5 className="font-black mb-8 text-xl text-emerald-500">الدعم</h5>
-              <ul className="space-y-5 text-slate-400 text-lg">
-                <li><a href="#" className="hover:text-white transition-colors">مركز المساعدة</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">سياسة الخصوصية</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">تواصل معنا</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">الأسئلة الشائعة</a></li>
+              <h5 className="font-black mb-8 text-xl text-emerald-500 text-right">الدعم</h5>
+              <ul className="space-y-5 text-slate-400 text-lg text-right">
+                <li><button className="hover:text-white transition-colors">مركز المساعدة</button></li>
+                <li><button className="hover:text-white transition-colors">سياسة الخصوصية</button></li>
+                <li><button className="hover:text-white transition-colors">تواصل معنا</button></li>
+                <li><button className="hover:text-white transition-colors">الأسئلة الشائعة</button></li>
               </ul>
             </div>
 
             <div className="bg-white/5 p-8 rounded-[2rem] border border-white/10">
-              <h5 className="font-black mb-6 text-xl">النشرة الصحية</h5>
-              <p className="text-slate-400 mb-8 leading-relaxed">كن أول من يحصل على آخر الأبحاث والنصائح الطبية الموثقة.</p>
-              <div className="flex flex-col gap-4">
+              <h5 className="font-black mb-6 text-xl text-right">النشرة الصحية</h5>
+              <p className="text-slate-400 mb-8 leading-relaxed text-right">كن أول من يحصل على آخر الأبحاث والنصائح الطبية الموثقة.</p>
+              <div className="flex flex-col gap-4 text-right">
                 <input 
                   type="email" 
                   placeholder="بريدك الإلكتروني"
-                  className="bg-white/10 border border-white/10 rounded-2xl px-5 py-4 text-sm outline-none focus:border-emerald-500 transition-colors"
+                  className="bg-white/10 border border-white/10 rounded-2xl px-5 py-4 text-sm outline-none focus:border-emerald-500 transition-colors text-right"
                 />
                 <button className="bg-emerald-600 text-white px-6 py-4 rounded-2xl font-black hover:bg-emerald-500 transition-all shadow-lg shadow-emerald-600/20">
                   اشتراك الآن
@@ -127,8 +131,8 @@ const App: React.FC = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-white/10 text-sm text-slate-500 font-bold">
             <p>© 2024 هيث-فلو العالمية. جميع الحقوق محفوظة.</p>
             <div className="flex gap-10">
-              <a href="#" className="hover:text-white">الأحكام والشروط</a>
-              <a href="#" className="hover:text-white">إخلاء المسؤولية</a>
+              <button className="hover:text-white">الأحكام والشروط</button>
+              <button className="hover:text-white">إخلاء المسؤولية</button>
             </div>
           </div>
         </div>
