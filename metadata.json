@@ -1,0 +1,8 @@
+{
+  "name": "HealthFlow - Advanced Healthcare Platform",
+  "description": "A modern, AI-powered healthcare landing page featuring service listings, doctor profiles, and an integrated appointment booking system with a smart AI health assistant.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
