@@ -1,11 +1,11 @@
 
 import React, { useState } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import Doctors from './components/Doctors';
-import Booking from './components/Booking';
-import HealthAssistant from './components/HealthAssistant';
+import Header from './components/Header.tsx';
+import Hero from './components/Hero.tsx';
+import Services from './components/Services.tsx';
+import Doctors from './components/Doctors.tsx';
+import Booking from './components/Booking.tsx';
+import HealthAssistant from './components/HealthAssistant.tsx';
 import { Activity, Instagram, Twitter, Linkedin, Shield, Award, Users } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -31,7 +31,6 @@ const App: React.FC = () => {
       <main className="flex-grow">
         <Hero onStart={() => scrollToSection('services')} />
         
-        {/* Trust Logos / Partners */}
         <section className="bg-white py-12 border-y border-slate-100 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4">
             <p className="text-center text-slate-400 text-sm font-bold mb-10 uppercase tracking-[0.2em]">شركاء الثقة والرعاية العالمية</p>
@@ -47,7 +46,6 @@ const App: React.FC = () => {
 
         <Services />
 
-        {/* Dynamic Statistics Section */}
         <section className="bg-slate-900 py-24 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-emerald-600/10 skew-x-12 translate-x-20"></div>
           <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-12 text-center relative z-10">
@@ -83,56 +81,6 @@ const App: React.FC = () => {
               <p className="text-slate-400 leading-relaxed mb-10 text-lg">
                 نحن نبني مستقبل الرعاية الصحية الرقمية، حيث تلتقي التكنولوجيا بالرحمة الإنسانية لتقديم أفضل تجربة علاجية.
               </p>
-              <div className="flex gap-5">
-                {[Instagram, Twitter, Linkedin].map((Icon, i) => (
-                  <button key={i} className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:text-emerald-500 hover:bg-white hover:shadow-xl transition-all duration-300">
-                    <Icon className="w-6 h-6" />
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h5 className="font-black mb-8 text-xl text-emerald-500 text-right">استكشف</h5>
-              <ul className="space-y-5 text-slate-400 text-lg text-right">
-                <li><button onClick={() => scrollToSection('services')} className="hover:text-white transition-colors flex items-center gap-2 mr-auto ml-0">الخدمات <span>•</span></button></li>
-                <li><button onClick={() => scrollToSection('doctors')} className="hover:text-white transition-colors flex items-center gap-2 mr-auto ml-0">أطباؤنا <span>•</span></button></li>
-                <li><button onClick={() => scrollToSection('booking')} className="hover:text-white transition-colors flex items-center gap-2 mr-auto ml-0">المواعيد <span>•</span></button></li>
-                <li><button onClick={() => setIsAssistantOpen(true)} className="hover:text-white transition-colors flex items-center gap-2 mr-auto ml-0">المساعد الذكي <span>•</span></button></li>
-              </ul>
-            </div>
-
-            <div>
-              <h5 className="font-black mb-8 text-xl text-emerald-500 text-right">الدعم</h5>
-              <ul className="space-y-5 text-slate-400 text-lg text-right">
-                <li><button className="hover:text-white transition-colors">مركز المساعدة</button></li>
-                <li><button className="hover:text-white transition-colors">سياسة الخصوصية</button></li>
-                <li><button className="hover:text-white transition-colors">تواصل معنا</button></li>
-                <li><button className="hover:text-white transition-colors">الأسئلة الشائعة</button></li>
-              </ul>
-            </div>
-
-            <div className="bg-white/5 p-8 rounded-[2rem] border border-white/10">
-              <h5 className="font-black mb-6 text-xl text-right">النشرة الصحية</h5>
-              <p className="text-slate-400 mb-8 leading-relaxed text-right">كن أول من يحصل على آخر الأبحاث والنصائح الطبية الموثقة.</p>
-              <div className="flex flex-col gap-4 text-right">
-                <input 
-                  type="email" 
-                  placeholder="بريدك الإلكتروني"
-                  className="bg-white/10 border border-white/10 rounded-2xl px-5 py-4 text-sm outline-none focus:border-emerald-500 transition-colors text-right"
-                />
-                <button className="bg-emerald-600 text-white px-6 py-4 rounded-2xl font-black hover:bg-emerald-500 transition-all shadow-lg shadow-emerald-600/20">
-                  اشتراك الآن
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-white/10 text-sm text-slate-500 font-bold">
-            <p>© 2024 هيث-فلو العالمية. جميع الحقوق محفوظة.</p>
-            <div className="flex gap-10">
-              <button className="hover:text-white">الأحكام والشروط</button>
-              <button className="hover:text-white">إخلاء المسؤولية</button>
             </div>
           </div>
         </div>
