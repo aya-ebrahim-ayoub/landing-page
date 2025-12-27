@@ -4,11 +4,10 @@ import { ChatMessage } from "../types.ts";
 
 export const getHealthAssistantResponse = async (history: ChatMessage[], message: string) => {
   try {
-    // التأكد من وجود المفتاح في بيئة التشغيل
     const apiKey = typeof process !== 'undefined' ? process.env.API_KEY : '';
     
     if (!apiKey) {
-      return "المساعد الذكي غير مفعل حالياً. يرجى مراجعة إعدادات المفتاح.";
+      return "عذراً، خدمة المساعد الذكي غير مهيأة حالياً بمفتاح التشغيل.";
     }
 
     const ai = new GoogleGenAI({ apiKey });
@@ -26,13 +25,13 @@ export const getHealthAssistantResponse = async (history: ChatMessage[], message
       model: 'gemini-3-flash-preview',
       contents,
       config: {
-        systemInstruction: "أنت مساعد طبي محترف. أجب باختصار وباللغة العربية.",
+        systemInstruction: "أنت مساعد طبي محترف. أجب باللغة العربية بأسلوب ودود ومختصر.",
       },
     });
 
-    return response.text || "عذراً، لم أستطع الرد.";
+    return response.text || "لم أتمكن من الحصول على إجابة، حاول مرة أخرى.";
   } catch (error) {
-    console.error("AI Error:", error);
-    return "حدث خطأ في الاتصال بالذكاء الاصطناعي.";
+    console.error("AI Assistant Error:", error);
+    return "حدث خطأ فني أثناء محاولة معالجة طلبك.";
   }
 };
